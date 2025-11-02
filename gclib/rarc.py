@@ -653,9 +653,7 @@ class RARCFileEntry(GCLibFileEntry):
     assert dir_entry.node is not None
     assert dir_entry.is_dir
 
-    if not len(dir_entry.node.files) or set(dir_entry.node.files).issubset({".", ".."})
-      return True
-    return False
+    return not len(dir_entry.node.files) or set(dir_entry.node.files).issubset({".", ".."})
   
   def save_changes(self):
     hash = 0
