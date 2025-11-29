@@ -649,11 +649,12 @@ class RARCFileEntry(GCLibFileEntry):
     return False
 
   def is_dir_empty(self) -> bool:
-    assert dir_entry.name not in [".", ".."]
-    assert dir_entry.node is not None
-    assert dir_entry.is_dir
+    empty_dir_list: list[str] = [".", ".."]
+    assert self.name not in empty_dir_list
+    assert self.node is not None
+    assert self.is_dir
 
-    return not len(dir_entry.node.files) or set(dir_entry.node.files).issubset({".", ".."})
+    return not len(self.node.files) or set([nfile.name for nfile in self.node.files]).issubset(empty_dir_list)
   
   def save_changes(self):
     hash = 0
